@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from './lib/supabase';
@@ -8,9 +8,16 @@ import { remainingUntil } from './lib/time';
 import Countdown, { urgencyOf } from './components/Countdown';
 import TimerWall from './components/TimerWall';
 import AuthPanel from './components/AuthPanel';
-import Console from './components/Console';
-import PendingScreen from './components/PendingScreen';
-import AdminPanel from './components/AdminPanel';
+
+const Console = lazy(() => import('./components/Console'));
+const PendingScreen = lazy(() => import('./components/PendingScreen'));
+const AdminPanel = lazy(() => import('./components/AdminPanel'));
+
+const ScreenLoading = () => (
+  <div role="status" className="py-8 text-center font-mono text-xs tracking-[0.2em] text-steel">
+    LOADING CONSOLE<span aria-hidden="true" className="animate-blink">_</span>
+  </div>
+);
 
 const App: React.FC = () => {
   const [session, setSession] = useState<Session | null>(null);
@@ -206,7 +213,9 @@ const App: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, transition: { duration: 0.25 } }}
             >
-              <AdminPanel onExit={() => { window.location.hash = '#/'; }} />
+              <Suspense fallback={<ScreenLoading />}>
+                <AdminPanel onExit={() => { window.location.hash = '#/'; }} />
+              </Suspense>
             </motion.div>
           )}
 
@@ -218,7 +227,9 @@ const App: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, transition: { duration: 0.25 } }}
             >
-              <PendingScreen config={config} onLogout={handleLogout} />
+              <Suspense fallback={<ScreenLoading />}>
+                <PendingScreen config={config} onLogout={handleLogout} />
+              </Suspense>
             </motion.div>
           )}
 
@@ -238,7 +249,9 @@ const App: React.FC = () => {
                   intervalMinutes={config.interval_minutes}
                 />
               </div>
-              <Console config={config} onConfig={setConfig} onLogout={handleLogout} />
+              <Suspense fallback={<ScreenLoading />}>
+                <Console config={config} onConfig={setConfig} onLogout={handleLogout} />
+              </Suspense>
             </motion.div>
           )}
 
