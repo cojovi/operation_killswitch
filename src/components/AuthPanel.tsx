@@ -165,7 +165,7 @@ const AuthPanel: React.FC<Props> = ({ onAuthed }) => {
       transition={{ delay: 0.3, duration: 0.5 }}
       className="hud-corner w-full max-w-md border border-edge bg-panel/80 p-6 backdrop-blur"
     >
-      <div className="mb-5 flex items-center justify-between">
+      <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
         <h2 className="font-display text-[0.65rem] tracking-[0.35em] text-amber">
           {mode === 'login' ? 'OPERATOR LOGIN' : 'ENLIST NEW OPERATOR'}
         </h2>
@@ -175,9 +175,9 @@ const AuthPanel: React.FC<Props> = ({ onAuthed }) => {
             setMode(mode === 'login' ? 'signup' : 'login');
             setError(null);
           }}
-          className="font-mono text-[0.65rem] tracking-[0.2em] text-steel-dim underline-offset-4 hover:text-amber hover:underline"
+          className="inline-flex min-h-11 shrink-0 items-center justify-center border border-amber-dim/70 bg-amber/5 px-3 py-2 font-mono text-[0.7rem] tracking-[0.12em] text-amber transition-colors hover:border-amber hover:bg-amber/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber"
         >
-          {mode === 'login' ? 'NEED AN ACCOUNT?' : 'HAVE AN ACCOUNT?'}
+          {mode === 'login' ? 'REQUEST ACCESS' : 'BACK TO LOGIN'}
         </button>
       </div>
 
