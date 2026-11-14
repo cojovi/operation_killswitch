@@ -13,7 +13,7 @@ A multi-user dead man's switch for timed file handover. An operator configures r
 
 I designed and built the application across the operator experience, authentication and approval flow, encrypted file handling, database model, and scheduled delivery. The interface treats time as the central interaction; the backend owns the decision to act.
 
-**[Explore the engineering ↓](#behind-the-switch)** · [Preview the console](#preview-the-console) · [Read the delivery model](docs/ENGINEERING.md#delivery-and-concurrency)
+**[Open the public site ↗](https://www.operationkillswitch.com)** · [Explore the engineering ↓](#behind-the-switch) · [Preview the console](#preview-the-console)
 
 `React 18` · `TypeScript` · `Vite` · `Supabase` · `PostgreSQL` · `Resend`
 
